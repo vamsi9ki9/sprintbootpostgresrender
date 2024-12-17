@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  spring-boot-app:
+    image: openjdk:17-jdk-slim
+    container_name: spring-boot-app
+    working_dir: /app
+    volumes:
+      - ./target:/app/target:ro  # Mount the target directory from the host
+    ports:
+      - "8080:8080"  # Map port 8080 from host to container
+    entrypoint: ["java", "-jar", "app.jar"]
+
+
+  db:
+      image: postgres:15
+      environment:
+        POSTGRES_DB: employee_directory
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: root
+      ports:
+        - "5432:5432"
+      volumes:
+        - db_data:/var/lib/postgresql/data
+
+volumes:
+    db_data:
+

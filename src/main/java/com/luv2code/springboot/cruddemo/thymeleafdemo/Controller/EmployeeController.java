@@ -22,6 +22,7 @@ public class EmployeeController {
     @GetMapping("/list")
     public String listEmployeees(Model theModel){
 //get the employyes for the DB.
+        System.out.println("employees/list");
 List<Employee> theEmployees=employeeService.findAll();
 theModel.addAttribute("employees",theEmployees);
      return   "employees/list-employees";
@@ -30,6 +31,7 @@ theModel.addAttribute("employees",theEmployees);
 
     @GetMapping("/showFormForAdd")
     public String AddEmployee(Model theModel){
+        System.out.println("employees/showFormforadd");
         Employee emp=new Employee();
         theModel.addAttribute("employee",emp);
         return   "employees/showFormForAdd";
@@ -38,12 +40,14 @@ theModel.addAttribute("employees",theEmployees);
 
     @PostMapping("/save")
     public String AddEmployee( @ModelAttribute("employee") Employee theemployee,Model theModel){
+        System.out.println("employees/save");
         theModel.addAttribute("employee",employeeService.save(theemployee));
         return   "redirect:/employees/list";
     }
 
     @GetMapping("/showFormForUpdate")
     public String UpdateEmployee(@RequestParam ("employeeId") int theID, Model theModel){
+        System.out.println("employees/showformupdate");
         theModel.addAttribute("employee",employeeService.findById(theID));
         return   "employees/showFormForAdd";
     }
@@ -51,6 +55,7 @@ theModel.addAttribute("employees",theEmployees);
 
     @GetMapping("/showFormForDelete")
     public String DeleteEmployee(@RequestParam ("employeeId") int theID){
+        System.out.println("employees/showformfordeleyte");
         employeeService.deleteById(theID);
      //   theModel.addAttribute("",);;
         return   "redirect:/employees/list";
